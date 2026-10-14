@@ -1,11 +1,16 @@
 import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
-import {defineConfig} from 'vite';
-import {VitePWA} from 'vite-plugin-pwa';
+import { defineConfig } from 'vite';
+import { VitePWA } from 'vite-plugin-pwa';
+
+// 👇 IMPORTANTE: debe coincidir EXACTAMENTE con el nombre de tu repo en GitHub
+const REPO_NAME = 'Datos-de-estudiantes';
+const BASE_PATH = `/${REPO_NAME}/`;
 
 export default defineConfig(() => {
   return {
+    base: BASE_PATH,  // 👈 CLAVE para GitHub Pages
     plugins: [
       react(),
       tailwindcss(),
@@ -13,7 +18,7 @@ export default defineConfig(() => {
         registerType: 'autoUpdate',
         includeAssets: ['favicon.ico', 'icon.svg', 'apple-touch-icon.png'],
         manifest: {
-          id: '/',
+          id: BASE_PATH,
           name: 'Gestión Escolar Sheets',
           short_name: 'EscolarApp',
           description: 'Gestión de estudiantes, notas y asistencia sincronizado con Google Sheets',
@@ -21,23 +26,23 @@ export default defineConfig(() => {
           background_color: '#f8fafc',
           display: 'standalone',
           orientation: 'portrait',
-          start_url: '/',
-          scope: '/',
+          start_url: BASE_PATH,   // 👈 antes era '/'
+          scope: BASE_PATH,       // 👈 antes era '/'
           icons: [
             {
-              src: '/pwa-192x192.png',
+              src: `${BASE_PATH}pwa-192x192.png`,  // 👈 antes era '/...'
               sizes: '192x192',
               type: 'image/png',
               purpose: 'any',
             },
             {
-              src: '/pwa-512x512.png',
+              src: `${BASE_PATH}pwa-512x512.png`,
               sizes: '512x512',
               type: 'image/png',
               purpose: 'any',
             },
             {
-              src: '/pwa-maskable-512x512.png',
+              src: `${BASE_PATH}pwa-maskable-512x512.png`,
               sizes: '512x512',
               type: 'image/png',
               purpose: 'maskable',
@@ -56,10 +61,7 @@ export default defineConfig(() => {
       },
     },
     server: {
-      // HMR is disabled in AI Studio via DISABLE_HMR env var.
-      // Do not modify—file watching is disabled to prevent flickering during agent edits.
       hmr: process.env.DISABLE_HMR !== 'true',
-      // Disable file watching when DISABLE_HMR is true to save CPU during agent edits.
       watch: process.env.DISABLE_HMR === 'true' ? null : {},
     },
   };
