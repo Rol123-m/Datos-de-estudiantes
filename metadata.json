@@ -1,0 +1,6 @@
+{
+  "name": "Gestión Escolar Sheets",
+  "description": "Aplicación web y móvil para gestionar fácilmente alumnos, calificaciones, asistencias y notas conectado directamente con Google Sheets.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
